@@ -7,7 +7,7 @@ var elements = document.getElementsByTagName('*');
 
 console.log("Trickle-extension starting");
 
-fetch(chrome.extension.getURL('/replacementdata/re.json')).then((resp) => resp.json()).then(function (jsonData) {
+fetch(chrome.extension.getURL('/replacements/re.json')).then((resp) => resp.json()).then(function (jsonData) {
 	
 	// first process the jsonData to remove things like prefixed and suffixed spaces
 	for (var k = 0; k < jsonData.length; k++){
