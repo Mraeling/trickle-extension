@@ -11,6 +11,8 @@ if (debug){
 }
 
 
+
+
 fetch(chrome.extension.getURL('/replacements/re.json')).then((resp) => resp.json()).then(function (jsonData) {
 	
 	// first process the jsonData to remove things like prefixed and suffixed spaces
@@ -39,8 +41,11 @@ fetch(chrome.extension.getURL('/replacements/re.json')).then((resp) => resp.json
 						
 						// make the key into a blue code
 						//var replacementText = '<font color="blue">'+jsonData[key]+'</font>';
+						regex = "(^|[^a-zA-Z])"+key+"([^a-zA-Z]|$)";
+						// note that this "newText" is a whole text node/paragraph, not a single word
+						newText = newText.replace(new RegExp(regex, 'gi'), " "+jsonData[key]+" ");
 						
-						newText = newText.replace(new RegExp(key, 'gi'), jsonData[key]);
+						
 						
 					}
 				}	
