@@ -4,6 +4,8 @@
 
 // Grab all elements on the page
 var debug = true;
+var highlight = false;
+
 var elements = document.getElementsByTagName('*');
 
 if (debug){
@@ -39,11 +41,15 @@ fetch(chrome.extension.getURL('/replacements/re.json')).then((resp) => resp.json
 						
 						//nodes.push(document.createTextNode(text)); 
 						
+						var replacementText = " "+jsonData[key]+" ";
+						
+						if (highlight){
 						// make the key into a blue code
-						//var replacementText = '<font color="blue">'+jsonData[key]+'</font>';
+						    replacementText = ' <font color="blue">'+jsonData[key]+'</font> ';
+						}
 						regex = "(^|[^a-zA-Z])"+key+"([^a-zA-Z]|$)";
 						// note that this "newText" is a whole text node/paragraph, not a single word
-						newText = newText.replace(new RegExp(regex, 'gi'), " "+jsonData[key]+" ");
+						newText = newText.replace(new RegExp(regex, 'gi'), replacementText);
 						
 						
 						
