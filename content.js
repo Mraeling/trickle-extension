@@ -1,8 +1,22 @@
-// Grab all elements
+// 
+// Main content script, which does the actual word replacements
+// 
+
+// Grab all elements on the page
 var elements = document.getElementsByTagName('*');
-	
+
+console.log("Trickle-extension starting");
+
 fetch(chrome.extension.getURL('/data/re.json')).then((resp) => resp.json()).then(function (jsonData) {
 	
+	// first process the jsonData to remove things like prefixed and suffixed spaces
+	for (var k = 0; k < jsonData.length; k++){
+	
+	    console.log(k);
+	
+	}
+	
+	// then go through all of the elements and each one of their child nodes
 	for (var i = 0; i < elements.length; i++) {
 		var element = elements[i];
 
@@ -24,20 +38,16 @@ fetch(chrome.extension.getURL('/data/re.json')).then((resp) => resp.json()).then
 						
 						newText = newText.replace(new RegExp(key, 'gi'), jsonData[key]);
 						
-						
-						
 					}
 				}	
 				if (newText !== oldText) {
 					
-					
+					// only replace the node if the text is different
 					element.replaceChild(document.createTextNode(newText), node);
 					
-					//for each textnode, appendchild to the node
-					
-					//element.style.color = "red";
-				} // replacement
-				
+					// for debug:
+					// element.style.color = "red";
+				} 			
 			}
 		}
 	}
